@@ -1,0 +1,28 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title class="title">{{"Plate Details" | translate}}</ion-title>
+        <ion-buttons end>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="item-page">
+    <ion-row class="productImage">
+        <img src={{menuItems.thumb}} alt="{{menuItems.title}} ">
+
+
+    </ion-row>
+    <!-- first-row -->
+    <!--favourite-->
+    <span clear text-center *ngIf="isLiked">
+        <ion-icon name="heart" class="fav" (click)="removeFevrt(menuItems.$key)"></ion-icon>
+    </span>
+    <span clear text-center *ngIf="!isLiked">
+        <ion-icon name="heart" class="fav heart-clicked" (click)="addToFevrt(menuItems.$key)"></ion-icon>
+    </span>
+
+    <p>
+      This plate contain things like..
+    </p>
+
+</ion-content>

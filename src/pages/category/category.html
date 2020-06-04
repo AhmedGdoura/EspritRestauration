@@ -1,0 +1,19 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title class="title">{{"Week Menu" | translate}}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-card *ngFor="let category of Categories">
+        <ion-list>
+            <ion-item (click)="navigate(category.$key)">
+                <ion-thumbnail item-left>
+                    <img src="{{category.thumb}}">
+                </ion-thumbnail>
+                <p class="heading">{{category.title}}</p>
+                <p>{{category.description |limitPipe:50}}</p>
+            </ion-item>
+        </ion-list>
+    </ion-card>
+</ion-content>
