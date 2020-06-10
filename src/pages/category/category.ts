@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { IonicPage, NavController, LoadingController } from "ionic-angular";
 import { AngularFireDatabase, AngularFireList } from "@angular/fire/database";
 import { map } from "rxjs/operators";
-
+import { MenusService } from "../../services/menu.service";
 @IonicPage()
 @Component({
   selector: "page-category",
@@ -12,17 +12,19 @@ export class CategoryPage {
   noOfItems: any;
   public Categories: Array<any> = [];
   categories: AngularFireList<any>;
+  menu: any = [];
 
   constructor(
     public navCtrl: NavController,
     public af: AngularFireDatabase,
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
+    public menuService: MenusService,
   ) {
     let loader = this.loadingCtrl.create({
       content: "Please wait..."
     });
     loader.present().then(() => {
-      this.categories = af.list("/categories");
+     /*  this.categories = af.list("/categories");
       this.categories.snapshotChanges()
         .pipe(
           map(changes =>
@@ -30,8 +32,18 @@ export class CategoryPage {
           )
         ).subscribe((res: any) => {
           this.Categories = res;
-        })
-      loader.dismiss();
+        }) */
+
+
+        this.menuService.getMenus().subscribe((res)=> {
+          var order = { Monday: 1, Tuesday: 2, Wednesday: 3, Thursday: 4, Friday: 5, Saturday: 6 };
+         this.menu=res
+        this.menu.sort(function (a, b) {
+        return order[a._id] - order[b._id];
+        });
+        loader.dismiss();
+      });
+
       // .subscribe(data => {
       //   this.Categories = [];
       //   loader.dismiss();
@@ -50,8 +62,8 @@ export class CategoryPage {
     this.noOfItems = cart != null ? cart.length : null;
   }
 
-  navigate(id) {
-    this.navCtrl.push("ProductListPage", { id: id });
+  navigate(item) {
+    this.navCtrl.push("ProductDetailsPage", { plate: item });
   }
 
   navcart() {

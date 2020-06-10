@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { IonicPage, NavController, LoadingController } from "ionic-angular";
 import { AngularFireDatabase, AngularFireList } from "@angular/fire/database";
 import { map } from "rxjs/operators";
+import { MenusService } from "../../services/menu.service";
 
 @IonicPage()
 @Component({
@@ -15,6 +16,7 @@ export class HomePage {
     autoplay: 2000,
     pager: false
   };
+  menu : any =[];
   Cart: any = [];
   noOfItems: any;
   uid;
@@ -27,18 +29,29 @@ export class HomePage {
   constructor(
     public navCtrl: NavController,
     public af: AngularFireDatabase,
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
+    public menuService: MenusService,
   ) {
+
     let loader = this.loadingCtrl.create({
       content: "Please wait..."
     });
     loader.present().then(() => {
       this.comingData = af.list("/coming");
-      this.categories = af.list("/categories");
+      /* this.categories = af.list("/categories"); */
       this.comingData.valueChanges().subscribe(data => {
         this.ComingData = data;
       });
-      this.categories.snapshotChanges()
+
+      this.menuService.getMenus().subscribe((res)=> {
+        var order = { Monday: 1, Tuesday: 2, Wednesday: 3, Thursday: 4, Friday: 5, Saturday: 6 };
+       this.menu=res
+      this.menu.sort(function (a, b) {
+      return order[a._id] - order[b._id];
+      });
+      loader.dismiss();
+      });
+      /* this.categories.snapshotChanges()
         .pipe(
           map(changes =>
             changes.map(c => ({ $key: c.payload.key, ...c.payload.val() }))
@@ -47,7 +60,7 @@ export class HomePage {
           this.Categories = data;
           console.log(this.Categories);
           loader.dismiss();
-        })
+        }) */
 
       // .subscribe(data => {
       //   this.Categories = [];
@@ -74,9 +87,9 @@ export class HomePage {
     }
   }
 
-  navigate(id) {
-    console.log(id)
-    this.navCtrl.push("ProductListPage", { id: id });
+  navigate(item) {
+    console.log(item)
+    this.navCtrl.push("ProductDetailsPage", { plate: item});
   }
 
   navcart() {

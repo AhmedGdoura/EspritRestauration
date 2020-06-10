@@ -1,8 +1,8 @@
 <ion-menu persistent="true" class="menu" [content]="content" *ngIf="this.platform.dir()==='ltr'" side="left">
   <ion-content class="sidebar-menu">
     <ion-row class="img-name-row">
-      <ion-col >
-        <img class="user-img" src="{{imageUrl}}">
+      <ion-col  >
+        <img *ngIf="isLoggedin()" class="user-img" src="{{imageUrl}}">
       </ion-col>
     </ion-row>
     <ion-row>

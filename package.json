@@ -20,6 +20,7 @@
     "@angular/http": "^5.2.11",
     "@angular/platform-browser": "^5.2.11",
     "@angular/platform-browser-dynamic": "^5.2.11",
+    "@auth0/angular-jwt": "^4.2.0",
     "@ionic-native/braintree": "^4.5.3",
     "@ionic-native/call-number": "3.12.1",
     "@ionic-native/core": "^3.14.0",
@@ -73,6 +74,7 @@
     "rimraf": "^3.0.2",
     "rxjs": "^6.0.0",
     "rxjs-compat": "^6.5.3",
+    "socket.io-client": "^2.3.0",
     "twitter-connect-plugin": "^0.6.0",
     "zone.js": "0.8.18"
   },

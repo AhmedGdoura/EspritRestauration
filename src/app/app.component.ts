@@ -1,4 +1,4 @@
-import { Component, ViewChild } from "@angular/core";
+import { Component, ViewChild, OnInit } from "@angular/core";
 import { Nav, Platform, Events } from "ionic-angular";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
@@ -9,14 +9,17 @@ import { AngularFireDatabase } from "@angular/fire/database";
 import { OneSignal } from "@ionic-native/onesignal";
 import { SocialSharing } from "@ionic-native/social-sharing";
 import { TranslateService } from "@ngx-translate/core";
+import { AuthService } from "../services/auth.service"
+import { SocketService } from "../services/socket.service"
 
 @Component({
   templateUrl: "app.html",
   selector: "MyApp",
   providers: [StatusBar, SplashScreen, OneSignal, SocialSharing]
 })
-export class MyApp {
+export class MyApp implements OnInit {
   @ViewChild(Nav) nav: Nav;
+  user: any;
   Cart: any = [];
   noOfItemsInCart: any;
   noOfItemsInFevrt: any;
@@ -36,13 +39,30 @@ export class MyApp {
     public socialSharing: SocialSharing,
     private oneSignal: OneSignal,
     private events: Events,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private auth: AuthService,
+    private socket: SocketService,
   ) {
     this.initializeApp();
+    this.auth.user.subscribe((userInfo: any) => {
+      if (userInfo != null) {
+        this.auth.getUserInfo(userInfo.message.email).subscribe( res => {
+          this.user = res;
+          this.establishSocketConnection();
+          this.name = this.user.name;
+          this.imageUrl = this.user.imagePath;
+
+
+        });
+      }
+      else {
+        this.name = 'USER'
+      }
+    });
   }
 
   ngOnInit() {
-    this.uid = localStorage.getItem("uid");
+ /*    this.uid = localStorage.getItem("uid");
     if (this.uid != null) {
       this.db
         .object("/users/" + this.uid)
@@ -60,11 +80,31 @@ export class MyApp {
           }
 
         });
-    }
+    } */
+
     this.useTranslateService();
     this.getNewsCount();
     this.getOfferCount();
     this.listenEvents();
+  }
+
+  async establishSocketConnection() {
+    try {
+
+      if (
+        this.user.email === '' ||
+        typeof this.user.email === 'undefined' ||
+        this.user.email === null
+      ) {
+        alert('error email not found');
+      } else {
+
+        /* making socket connection by passing UserId. */
+        await this.socket.connectSocket(this.user.email, this.user.role);
+      }
+    } catch (error) {
+      console.log('heyyyyy'+error);
+    }
   }
 
   private getNewsCount() {
@@ -88,8 +128,8 @@ export class MyApp {
   private listenEvents() {
     this.events.subscribe("imageUrl", response => {
       this.imageUrl =
-        response.image != "" && response.image != null
-          ? response.image
+        response.imagePath != "" && response.imagePath != null
+          ? response.imagePath
           : "assets/img/profile.jpg";
       this.name = response.name;
     });
@@ -205,15 +245,18 @@ export class MyApp {
   }
 
   logout() {
-    this.af.auth.signOut();
+    /* this.af.auth.signOut(); */
+    this.socket.logout(this.user.email, this.user.role);
+    this.auth.logout();
     localStorage.removeItem("uid");
     localStorage.removeItem('playerId');
     this.imageUrl = "assets/img/profile.jpg";
-    this.nav.setRoot("LoginPage");
+    this.nav.setRoot("HomePage");
   }
 
   isLoggedin() {
-    return localStorage.getItem("uid") != null;
+    return localStorage.getItem("token") != null;
+
   }
 
   isCart() {

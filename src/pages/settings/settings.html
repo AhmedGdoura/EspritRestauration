@@ -16,7 +16,6 @@
                 <ion-icon ios="ios-cloud-upload" md="md-cloud-upload"></ion-icon>
             </label>
         </ion-row>
-        <p class="name">{{user.name}}</p>
     </div>
     <ion-list>
         <ion-item class="select-item">
@@ -41,21 +40,25 @@
             </ion-item> -->
             <!--card no-->
             <ion-item>
-                <ion-label>{{"User Name:" | translate}}</ion-label>
+                <ion-label>{{ "Name:" | translate}}</ion-label>
                 <ion-input type="text" name="name" id="name" placeholder="{{'name' | translate}}" [(ngModel)]="user.name" required></ion-input>
             </ion-item>
             <ion-item>
-                <ion-label>{{"Email:" | translate}}</ion-label>
-                <ion-input type="email" name="email" id="email" placeholder="{{'email' | translate}}" [(ngModel)]="user.email" required></ion-input>
-            </ion-item>
+              <ion-label>{{ "Last Name:" | translate}}</ion-label>
+              <ion-input type="text" name="lastname" id="name" placeholder="{{'Last Name' | translate}}" [(ngModel)]="user.lastname" required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>{{ "Mobile Number:" | translate}}</ion-label>
+            <ion-input type="text" name="mobileNo" id="mobileNo" placeholder="mobile number" [(ngModel)]="user.phone" required></ion-input>
+        </ion-item>
             <ion-item>
-                <ion-label>{{"Mobile Number:" | translate}}</ion-label>
-                <ion-input type="text" name="mobileNo" id="mobileNo" placeholder="mobile number" [(ngModel)]="user.mobileNo" required></ion-input>
+                <ion-label>{{ "Email: " | translate}}{{  user.email | translate}}</ion-label>
+                <!-- <ion-input type="email" name="email" id="email" placeholder="{{'email' | translate}}" [(ngModel)]="user.email" required></ion-input> -->
             </ion-item>
                    <ion-item>
-                    <ion-label>Card Number:</ion-label>
-                    <ion-input type="text" name="card" id="card" placeholder="183JMT2812"
-                               [(ngModel)]="user.card"></ion-input>
+                    <ion-label>{{ "Card Number: " | translate}}{{ user.IdCarte }}</ion-label>
+                    <!-- <ion-input type="text" name="card" id="card" placeholder="183JMT2812"
+                               [(ngModel)]="user.card"></ion-input> -->
                   </ion-item>
             <!--name on card-->
             <!--       <ion-item>
@@ -71,9 +74,9 @@
                   </ion-item> -->
             <!--date-->
                   <ion-item>
-                    <ion-label>Date of expiry:</ion-label>
-                    <ion-input type="number" name="date" id="date" placeholder="25/06/2020"
-                               [(ngModel)]="user.date"></ion-input>
+                    <ion-label>{{ "Subscription expiration: " | translate}}{{ user.date_expiry }}</ion-label>
+                    <!-- <ion-input type="number" name="date" id="date" placeholder="25/06/2020"
+                               [(ngModel)]="user.date"></ion-input> -->
                   </ion-item>
         </ion-list>
         <!--button-->
