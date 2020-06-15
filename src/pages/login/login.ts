@@ -81,7 +81,7 @@ export class LoginPage {
     });
     alert.present();
   }
-
+/*
   doFbLogin() {
     let permissions = new Array();
     permissions = ["public_profile", "email", "user_education_history"];
@@ -191,7 +191,7 @@ export class LoginPage {
         });
       }
     });
-  }
+  } */
 
   Register() {
     this.navCtrl.setRoot("RegistrationPage");
