@@ -21,6 +21,7 @@ import "firebase/storage";
 import { DatePicker } from "@ionic-native/date-picker";
 import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { ReactiveFormsModule } from '@angular/forms';
+import { environment } from '../environments/environment'
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -31,7 +32,7 @@ export function jwtOptionsFactory() {
     tokenGetter: () => {
       return localStorage.getItem("token");
     },
-    whitelistedDomains: ['localhost:8080']
+    whitelistedDomains: [environment.apiUrl]
   }
 }
 

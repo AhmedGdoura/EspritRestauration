@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../environments/environment'
 
 @Injectable()
 export class UpdateProfileService {
@@ -19,7 +20,7 @@ export class UpdateProfileService {
       menuData.append('image', file, user.email);
       }
     return this.http
-      .put('http://localhost:8080/api/v1/users/update-data/', menuData);
+      .put(environment.apiUrl+'api/v1/users/update-data/', menuData);
     }
 
 }

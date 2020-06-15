@@ -2,8 +2,9 @@ import { Platform, AlertController } from "ionic-angular";
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { tap, catchError } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
+import { environment } from '../environments/environment'
 
 const TOKEN_KEY = 'token';
 
@@ -44,7 +45,7 @@ export class AuthService {
   } */
 
   login(email: String, password: String) {
-    return this.http.post(`http://localhost:8080/api/v1/users/authenticateuser`, {email: email, password: password})
+    return this.http.post(environment.apiUrl+`api/v1/users/authenticateuser`, {email: email, password: password})
       .pipe(
         tap(res => {
           localStorage.setItem(TOKEN_KEY, res['token']);
@@ -83,7 +84,7 @@ export class AuthService {
   }
 
   getUserInfo (email: any) {
-    return this.http.get(`http://localhost:8080/api/v1/users/get-data/`+email);
+    return this.http.get(environment.apiUrl+`api/v1/users/get-data/`+email);
 
   }
 

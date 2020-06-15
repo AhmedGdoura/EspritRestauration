@@ -9,9 +9,11 @@ import { MessageRequest } from '../classes/message-request';
 import { MessagesResponse } from '../classes/messages-response';
 /* importing interfaces ends */
 
+import { environment } from '../environments/environment'
+
 @Injectable()
 export class ChatService {
-  private BASE_URL = 'http:///localhost:8080/api/v1/users/';
+  private BASE_URL = environment.apiUrl+'api/v1/users/';
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',

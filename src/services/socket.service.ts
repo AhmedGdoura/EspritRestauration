@@ -3,10 +3,11 @@ import { Observable } from 'rxjs';
 import { ChatListResponse } from '../classes/chat-response-list';
 import { MessageSocketEvent } from '../classes/message-socket-event';
 import { Message } from '../classes/message';
+import { environment } from '../environments/environment'
 export class SocketService {
 
 
-    private url = 'http://localhost:8080';
+    private url = environment.apiUrl;
     private socket;
     /* private page = new BehaviorSubject(false);
     pageStatus: Observable<boolean> = this.page.asObservable(); */
