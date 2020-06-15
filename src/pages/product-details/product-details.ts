@@ -10,7 +10,7 @@ import {
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFireDatabase, AngularFireObject } from "@angular/fire/database";
 import { CartService } from "../../pages/cart.service";
-
+import { ProductDetailsService } from "../../services/product-details.service";
 @IonicPage()
 @Component({
   selector: "page-product-details",
@@ -18,7 +18,7 @@ import { CartService } from "../../pages/cart.service";
 })
 export class ProductDetailsPage {
   FireVisible = false;
-  id: any;
+  plate: any;
   count: any = 1;
   isLiked: boolean = false;
   public menuItems: any = {};
@@ -38,6 +38,7 @@ export class ProductDetailsPage {
   public selectedItems: Array<any> = [];
   menuItem: AngularFireObject<any>;
   currency: {};
+  ingredients: any = [];
 
   constructor(
     public navCtrl: NavController,
@@ -47,11 +48,18 @@ export class ProductDetailsPage {
     public cartService: CartService,
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
-    public toastCtrl: ToastController
+    public toastCtrl: ToastController,
+    public productDetails: ProductDetailsService,
   ) {
     this.currency = JSON.parse(localStorage.getItem('currency'));
-    this.id = this.navParams.get("id");
-    this.menuItem = db.object("/menuItems/" + this.id);
+    this.plate = this.navParams.get("plate");
+    this.productDetails.getDetails(this.plate.name).subscribe (
+      (res)=> {
+        console.dir(res, {depth: null});
+        this.ingredients = res;
+      }
+    )
+    /* this.menuItem = db.object("/menuItems/" + this.id);
     this.menuItem.valueChanges().subscribe((data: any) => {
       if (data != null) {
         this.menuItems = data;
@@ -75,7 +83,7 @@ export class ProductDetailsPage {
             }
           });
       }
-    });
+    }); */
   }
 
   ionViewWillEnter() {

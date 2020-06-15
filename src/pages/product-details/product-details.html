@@ -1,4 +1,4 @@
-<ion-header>
+<!-- <ion-header>
     <ion-navbar>
         <ion-title class="title">{{"Plate Details" | translate}}</ion-title>
         <ion-buttons end>
@@ -8,12 +8,11 @@
 
 <ion-content class="item-page">
     <ion-row class="productImage">
-        <img src={{menuItems.thumb}} alt="{{menuItems.title}} ">
+        <img src={{plate.imagePath}} alt="{{plate.name}} ">
 
 
     </ion-row>
-    <!-- first-row -->
-    <!--favourite-->
+
     <span clear text-center *ngIf="isLiked">
         <ion-icon name="heart" class="fav" (click)="removeFevrt(menuItems.$key)"></ion-icon>
     </span>
@@ -21,8 +20,61 @@
         <ion-icon name="heart" class="fav heart-clicked" (click)="addToFevrt(menuItems.$key)"></ion-icon>
     </span>
 
-    <p>
-      This plate contain things like..
-    </p>
 
+   <ion-row>
+    <p>
+      This plate contain things like:
+    </p>
+    <br>
+    <ul>
+      <li *ngFor="let item of ingredients">
+        {{ item.ingr }}
+      </li>
+    </ul>
+  </ion-row>
+</ion-content> -->
+
+<ion-header>
+  <ion-navbar>
+      <ion-title class="title">{{"Plate Details" | translate}}</ion-title>
+      <ion-buttons end>
+      </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="grid">
+    <ion-row>
+      <!-- first row -->
+      <ion-slides pager initialSlide=0 speed=2000 loop=true dir="rtl">
+        <ion-slide>
+          <div class="card-title">{{ plate.name | translate}}</div>
+          <div class="overlay">
+            <img src={{plate.imagePath}} class="slider-img">
+          </div>
+        </ion-slide>
+      </ion-slides>
+    </ion-row>
+    <!-- first row -->
+
+    <span clear text-center *ngIf="isLiked">
+      <ion-icon name="heart" class="fav" (click)="removeFevrt(menuItems.$key)"></ion-icon>
+  </span>
+  <span clear text-center *ngIf="!isLiked">
+      <ion-icon name="heart" class="fav heart-clicked" (click)="addToFevrt(menuItems.$key)"></ion-icon>
+  </span>
+    <!-- second-row -->
+
+    <h2 text-center>{{"Ingredients: " | translate}}</h2>
+
+    <ion-row class="categories">
+
+      <ul>
+        <li *ngFor="let item of ingredients">
+          <h5> {{ item.ingr }} </h5>
+        </li>
+      </ul>
+    </ion-row>
+  </ion-grid>
 </ion-content>
+

@@ -28,9 +28,9 @@
     <h2 text-center>{{"Menu" | translate}}</h2>
 
     <ion-row class="categories">
-      <ion-col col-6 *ngFor="let item of Categories" (click)="navigate(item.$key)">
-        <img src="{{item.thumb}}" />
-        <p class="text-over-img">{{item.title}}</p>
+      <ion-col col-6 *ngFor="let item of menu" (click)="navigate(item)">
+        <img src="{{item.imagePath}}" />
+        <p class="text-over-img">{{item._id}}</p>
       </ion-col>
     </ion-row>
   </ion-grid>

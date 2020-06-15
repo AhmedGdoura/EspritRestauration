@@ -1,12 +1,61 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>{{"Chat" | translate}}</ion-title>
+      <div class="nav-container">
+        <ion-title>{{"Moderator" | translate}}</ion-title>
+        <span [ngClass]="selectedUser.online === 'Y' ? 'online' : 'offline'"> </span>
+      </div>
     </ion-navbar>
 </ion-header>
 
 
 <ion-content class="chat-bg">
-    <section>
+
+  <div class="massege-container">
+
+		<ul #messageThread class="message-thread" *ngIf="messages.length !== 0">
+			<li *ngFor="let message of messages" [class.align-right]="alignMessage(message.toUserEmail)">
+				{{ message.message}}
+			</li>
+		</ul>
+
+		<div  class="message-thread start-chatting-banner" *ngIf="messages.length === 0">
+			<p class="heading">
+				Loading messages please wait ...
+				<span class="sub-heading">Say Hi.</span>
+			</p>
+		</div>
+	</div>
+
+</ion-content>
+<ion-footer>
+    <ion-toolbar>
+        <form [formGroup]="messageForm" novalidate>
+            <ion-row class="chat-footer">
+                <ion-col col-10>
+                    <ion-item>
+                        <ion-input formControlName="message"
+                        #messageInput
+                        autofocus
+                        nbInput
+                        placeholder="Type your message here"
+                        type="text"
+                        >
+                        </ion-input>
+                    </ion-item>
+                </ion-col>
+                <ion-col col-2>
+                    <button ion-button icon only  (click)="sendMessage($event)"
+                    class="send-button">
+                        <ion-icon class="enter-btn" name="send"></ion-icon>
+                    </button>
+                </ion-col>
+            </ion-row>
+        </form>
+    </ion-toolbar>
+</ion-footer>
+
+
+<!--     <section>
         <span *ngFor="let data of messageList">
             <ion-row *ngIf="data.sendBy =='User'">
                 <ion-col col-3>
@@ -39,27 +88,5 @@
                 </ion-col>
             </ion-row>
         </span>
-        <!-- ddd -->
-    </section>
 
-</ion-content>
-<ion-footer>
-    <ion-toolbar>
-        <form #f="ngForm" (ngSubmit)="sendMessage(f)">
-            <ion-row class="chat-footer">
-                <ion-col col-10>
-                    <ion-item>
-                        <ion-input type="text" placeholder="{{'Type message...' | translate}}"
-                            [(ngModel)]=chatMessage.message name="message" required clearInput>
-                        </ion-input>
-                    </ion-item>
-                </ion-col>
-                <ion-col col-2>
-                    <button ion-button icon only type="submit" [disabled]="!f.valid">
-                        <ion-icon class="enter-btn" name="send"></ion-icon>
-                    </button>
-                </ion-col>
-            </ion-row>
-        </form>
-    </ion-toolbar>
-</ion-footer>
+    </section> -->
