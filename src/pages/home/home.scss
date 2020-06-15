@@ -3,6 +3,7 @@ page-home {
     font-family: 'Lucida Handwriting';
     margin-top: 1rem;
   }
+
   /*slider*/
   .grid {
     padding: 0px;
@@ -15,7 +16,7 @@ page-home {
         display: inline-flex;
       }
       .slider-img {
-        height: 220px;
+        height: 100%;
         width: 100%;
         position: relative;
         z-index: -111;

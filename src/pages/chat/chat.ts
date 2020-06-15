@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef } from "@angular/core";
 import { FormGroup } from '@angular/forms';
-import { Content } from "ionic-angular/index";
+//import { Content } from "ionic-angular/index";
 import { IonicPage, NavController } from "ionic-angular";
 import { AuthService } from "../../services/auth.service"
 import { SocketService } from "../../services/socket.service"

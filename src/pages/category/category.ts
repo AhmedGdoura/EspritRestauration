@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, LoadingController } from "ionic-angular";
 import { AngularFireDatabase, AngularFireList } from "@angular/fire/database";
-import { map } from "rxjs/operators";
+//import { map } from "rxjs/operators";
 import { MenusService } from "../../services/menu.service";
 @IonicPage()
 @Component({

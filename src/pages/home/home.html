@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title class="title">{{"Restaurant App" | translate}}
+    <ion-title class="title">{{"Restaurant eat 'it" | translate}}
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -14,11 +14,11 @@
     <ion-row>
       <!-- first row -->
       <ion-slides pager initialSlide=0 speed=2000 loop=true dir="rtl">
-        <ion-slide *ngFor="let item of ComingData">
+        <ion-slide >
           <div class="overlay">
-            <img src={{item.thumb}} class="slider-img">
+            <img src="assets/img/logosmartcook.png" class="slider-img">
           </div>
-          <div class="card-title">{{"Eat It" | translate}}</div>
+        <!--  <div class="card-title">{{"Eat It" | translate}}</div> -->
         </ion-slide>
       </ion-slides>
     </ion-row>

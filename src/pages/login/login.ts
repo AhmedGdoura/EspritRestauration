@@ -12,7 +12,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFireDatabase } from "@angular/fire/database";
 import { Facebook } from "@ionic-native/facebook";
-import * as firebase from "firebase";
+
 import { GooglePlus } from "@ionic-native/google-plus";
 import { TwitterConnect } from "@ionic-native/twitter-connect";
 import { AuthService } from "../../services/auth.service"
